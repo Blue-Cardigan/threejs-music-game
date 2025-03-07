@@ -1,0 +1,17 @@
+{
+  "name": "threejs-platform-rhythm-game",
+  "version": "1.0.0",
+  "description": "A platform game with rhythm-based combat using Three.js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.159.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.10"
+  }
+} 

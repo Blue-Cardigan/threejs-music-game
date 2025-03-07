@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Rhythm Game</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      display: block;
+    }
+    #ui-container {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 16px;
+      pointer-events: none;
+    }
+    #rhythm-container {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 150px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      display: none;
+    }
+    #rhythm-line {
+      position: absolute;
+      left: 100px;
+      top: 0;
+      width: 5px;
+      height: 100%;
+      background-color: #ff0000;
+    }
+    .note-lane {
+      position: absolute;
+      height: 30px;
+      width: 100%;
+      border-bottom: 1px solid #444;
+    }
+    .key-indicator {
+      position: absolute;
+      left: 10px;
+      width: 80px;
+      height: 30px;
+      background-color: #333;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .note {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+    }
+    #combat-ui {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      display: none;
+    }
+    #game-over, #game-win {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 32px;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      display: none;
+    }
+    #restart-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="ui-container">
+    <div id="player-health">Player Health: 100</div>
+    <div id="score">Score: 0</div>
+    <div id="instructions">
+      Move: A/D, Jump: W<br>
+      Combat: Z (Kick), X (Snare), J (Tom), K (Tambourine)
+    </div>
+  </div>
+  
+  <div id="rhythm-container">
+    <div id="rhythm-line"></div>
+    <div class="note-lane" style="top: 0px;">
+      <div class="key-indicator">Z</div>
+    </div>
+    <div class="note-lane" style="top: 30px;">
+      <div class="key-indicator">X</div>
+    </div>
+    <div class="note-lane" style="top: 60px;">
+      <div class="key-indicator">J</div>
+    </div>
+    <div class="note-lane" style="top: 90px;">
+      <div class="key-indicator">K</div>
+    </div>
+  </div>
+  
+  <div id="combat-ui">
+    <div id="enemy-name">Enemy</div>
+    <div id="enemy-health">Health: 100</div>
+  </div>
+  
+  <div id="game-over">
+    Game Over!
+    <br>
+    <button id="restart-button">Restart</button>
+  </div>
+  
+  <div id="game-win">
+    You Win!
+    <br>
+    <button id="restart-button-win">Play Again</button>
+  </div>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html> 
