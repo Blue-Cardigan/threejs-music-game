@@ -1,0 +1,18 @@
+{
+  "name": "3js-rhythm-platformer",
+  "version": "1.0.0",
+  "description": "A 3D platformer rhythm game built with Three.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.159.0",
+    "howler": "^2.2.4"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+} 

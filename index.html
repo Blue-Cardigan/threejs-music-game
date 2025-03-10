@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhythm Platformer</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            display: block;
+        }
+        #ui-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            z-index: 100;
+        }
+        #rhythm-container {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 150px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            display: none;
+            z-index: 100;
+        }
+        #score-display {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            z-index: 100;
+        }
+        #instructions {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 200;
+            text-align: center;
+        }
+        #instructions button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .battle-start-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .battle-start-content {
+            background-color: rgba(40, 40, 40, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 3px solid #f1c40f;
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.6);
+            animation: pulse 1s infinite alternate;
+        }
+        .battle-start-content h2 {
+            font-size: 36px;
+            margin: 0 0 15px 0;
+            color: #f1c40f;
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.8);
+        }
+        .conversion-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+            animation: fadeIn 0.5s ease-in-out;
+            transition: opacity 1s ease-in-out;
+        }
+        .conversion-content {
+            background-color: rgba(40, 40, 40, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 3px solid #2ecc71;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.6);
+            animation: pulse 1s infinite alternate;
+        }
+        .conversion-content h2 {
+            font-size: 36px;
+            margin: 0 0 15px 0;
+            color: #2ecc71;
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.8);
+        }
+        .stats {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #f1c40f;
+        }
+        .damage-number {
+            position: absolute;
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 24px;
+            text-shadow: 0 0 5px black;
+            z-index: 150;
+            pointer-events: none;
+            user-select: none;
+        }
+        .damage-breakdown-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .damage-breakdown-content {
+            background-color: rgba(40, 40, 40, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 3px solid #e74c3c;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+        }
+        .damage-breakdown-content h2 {
+            font-size: 28px;
+            margin: 0 0 15px 0;
+            color: #e74c3c;
+        }
+        .damage-breakdown {
+            margin-top: 15px;
+            text-align: left;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .damage-breakdown h3 {
+            margin-top: 0;
+            color: #f1c40f;
+        }
+        .total-damage {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 10px;
+        }
+        .retry-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .retry-content {
+            background-color: rgba(40, 40, 40, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 3px solid #3498db;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.6);
+        }
+        .retry-content h2 {
+            font-size: 28px;
+            margin: 0 0 15px 0;
+            color: #3498db;
+        }
+        .enemy-health {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 15px 0;
+        }
+        .retry-content button {
+            margin: 10px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        #continue-battle {
+            background-color: #2ecc71;
+            color: white;
+        }
+        #continue-battle:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+        }
+        #retreat {
+            background-color: #e74c3c;
+            color: white;
+        }
+        #retreat:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <div id="ui-container">
+        <div id="health">Health: 100</div>
+        <div id="enemies-converted">Enemies Converted: 0</div>
+    </div>
+    <div id="score-display">
+        <div id="accuracy">Accuracy: 0%</div>
+        <div id="combo">Combo: 0</div>
+    </div>
+    <div id="rhythm-container"></div>
+    <div id="instructions">
+        <h2>Rhythm Platformer</h2>
+        <p>Move with WASD and jump with SPACE</p>
+        <p>In combat, hit the rhythm keys (Z, X, J, K) when they reach the target line</p>
+        <p>Convert all enemies to complete the level!</p>
+        <button id="start-button">Start Game</button>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html> 
