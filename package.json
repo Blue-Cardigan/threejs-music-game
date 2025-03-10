@@ -1,0 +1,18 @@
+{
+  "name": "musician-office-game",
+  "version": "1.0.0",
+  "description": "A ThreeJS rhythm game where a musician navigates through office floors",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.159.0",
+    "gsap": "^3.12.3"
+  },
+  "devDependencies": {
+    "vite": "^5.0.10"
+  }
+} 
