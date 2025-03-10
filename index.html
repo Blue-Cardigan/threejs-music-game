@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drummer vs Politicians</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    #game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    #ui-container {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: white;
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 5px;
+    }
+    #rhythm-container {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 200px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      display: none;
+      z-index: 10;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    #rhythm-notes {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      width: 100%;
+      position: relative;
+    }
+    .note {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+    .key-guide {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 20px;
+    }
+    .key {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .key-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      margin-bottom: 5px;
+      border: 2px solid white;
+    }
+    #combat-info {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+    }
+    #game-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+      z-index: 20;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container"></div>
+  <div id="ui-container">
+    <div id="health">Health: 100</div>
+    <div id="xp">XP: 0</div>
+    <div id="level">Level: 1</div>
+  </div>
+  <div id="rhythm-container">
+    <h2>Play the Rhythm!</h2>
+    <div id="rhythm-notes"></div>
+    <div id="instructions">Press H to hear the pattern, SPACE to rehearse, or ENTER to start the challenge</div>
+    <div class="key-guide">
+      <div class="key">
+        <div class="key-button" style="background-color: #FF5252;">Z</div>
+        <span>Low E</span>
+      </div>
+      <div class="key">
+        <div class="key-button" style="background-color: #FFEB3B;">X</div>
+        <span>A String</span>
+      </div>
+      <div class="key">
+        <div class="key-button" style="background-color: #4CAF50;">J</div>
+        <span>D String</span>
+      </div>
+      <div class="key">
+        <div class="key-button" style="background-color: #2196F3;">K</div>
+        <span>High E</span>
+      </div>
+    </div>
+    <div class="control-guide" style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+      <div class="key">
+        <div class="key-button" style="background-color: #9C27B0;">H</div>
+        <span>Hear Pattern</span>
+      </div>
+      <div class="key">
+        <div class="key-button" style="background-color: #FF9800;">SPACE</div>
+        <span>Rehearse</span>
+      </div>
+      <div class="key">
+        <div class="key-button" style="background-color: #607D8B;">ENTER</div>
+        <span>Start Challenge</span>
+      </div>
+    </div>
+  </div>
+  <div id="combat-info">
+    <div id="enemy-name">Enemy: Politician</div>
+    <div id="enemy-health">Health: 100</div>
+    <div id="accuracy">Accuracy: 0%</div>
+  </div>
+  <div id="game-over">
+    <h2 id="game-over-message">Game Over</h2>
+    <p id="final-score">Your final score: 0 XP</p>
+    <button id="restart-button">Play Again</button>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html> 
